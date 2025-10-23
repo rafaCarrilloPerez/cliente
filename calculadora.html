@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <input type="number" id="num1" placeholder="Número 1">
+
+ <input type="number" id="num2" placeholder="Número 2">
+
+<button onclick= "suma()">sumar</button>
+<button onclick= "resta()">resta</button>
+<button onclick= "multiplicar()">multiplicar</button>
+<button onclick= "division()">division</button>
+<button onclick= "potencia()">potencia</button>
+<button onclick= "resto()">resto</button>
+
+
+
+
+<button onclick= "repit()">for</button>
+<button onclick= "repit2()">while</button>
+<button onclick= "repit3()">dowhile</button>
+
+
+<button onclick= "repit4()">for badges</button>
+<button onclick= "repit5()">while badges</button>
+<button onclick= "repit6()">dowhile badges</button>
+
+<div id="resultado"></div>
+
+<script>
+
+  function numeros(){
+    const num1 = parseFloat(document.getElementById('num1').value);
+    const num2 = parseFloat(document.getElementById('num2').value);
+    return { num1, num2 };
+  }
+
+  function cambiar(texto){
+    document.getElementById('resultado').innerHTML = texto;
+  }
+
+
+  //esto es de el ejercicio 2
+function suma(){
+const { num1, num2 } = numeros();
+const resultado = num1 + num2;
+cambiar("El resultado es: " + resultado);
+
+
+}
+
+
+
+function resta(){
+const { num1, num2 } = numeros();
+const resultado = num1 - num2;
+cambiar("El resultado es: " + resultado);
+
+}
+function multiplicar(){
+const { num1, num2 } = numeros();
+
+const resultado = num1 * num2;
+cambiar("El resultado es: " + resultado);
+
+}
+function division(){
+const { num1, num2 } = numeros();
+
+const resultado = num1 / num2;
+
+cambiar("El resultado es: " + resultado);
+
+}
+
+function potencia(){
+const { num1, num2 } = numeros();
+const resultado = num1 ** num2;
+
+cambiar("El resultado es: " + resultado);
+
+}
+
+
+function resto(){
+const { num1, num2 } = numeros();
+const resultado = num1 % num2;
+cambiar("El resultado es: " + resultado);
+
+}
+
+// esto es ejercicio 3
+//bucle for
+function repit(){
+const { num1 } = numeros();
+let texto = "";
+for (let i = 0; i <num1; i++){
+
+texto += "for: " + (i + 1) + "<br>";
+
+
+
+}
+
+
+cambiar(texto);
+
+
+
+}
+//bucle while
+
+function repit2(){
+
+
+const { num1 } = numeros();
+let texto = "";
+let i = 0;
+
+while (i < num1){
+
+texto += "<span> " + (i + 1) + "<br>";
+i++;
+
+
+
+
+}
+
+
+
+cambiar(texto);
+
+
+
+}
+
+//bucle do while
+function repit3(){
+const { num1 } = numeros();
+let texto = "";
+let i = 0;
+
+do{
+
+texto += "dowhile: " +(i + 1) + "<br>";
+i++;
+
+
+}while(i <num1);
+
+cambiar(texto);
+
+}
+
+
+//badges
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function repit4(){
+const { num1 } = numeros();
+let texto = "";
+for (let i = 0; i <num1; i++){
+
+texto += `<span class="badge bg-success m-1">#${i}</span>`;
+
+
+
+}
+
+
+cambiar(texto);
+
+
+
+}
+//bucle while
+
+function repit5(){
+
+
+const { num1 } = numeros();
+let texto = "";
+let i = 0;
+
+while (i < num1){
+
+texto += `<span class="badge bg-warning text-dark m-1">#${i}</span>`;
+i++;
+
+
+
+
+}
+
+
+
+cambiar(texto);
+
+
+
+}
+
+//bucle do while
+function repit6(){
+const { num1 } = numeros();
+let texto = "";
+let i = 0;
+
+do{
+
+texto += `<span class="badge bg-warning text-green m-1">#${i}</span>`;
+i++;
+
+
+}while(i <num1);
+
+cambiar(texto);
+
+}
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>
