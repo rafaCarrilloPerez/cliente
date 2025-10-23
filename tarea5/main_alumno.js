@@ -138,7 +138,7 @@ document.getElementById('boton3').onclick = function () {
 // intento exitoso
 
 function hover(elemento) {
-   elemento.addEventListener('mouseenter', function() {
+   elemento.addEventListener('mouseenter', function () {
       elemento.style.backgroundColor = '#e7f5ff';
    });
 
@@ -149,7 +149,7 @@ function hover(elemento) {
 // coge los elementos del array
 let elementos = document.querySelectorAll('#contenido p');
 // reccore el array y le aplica duncion hover
-elementos.forEach( function(elemento) {
+elementos.forEach(function (elemento) {
    hover(elemento);
 });
 
@@ -181,7 +181,7 @@ elementos.forEach( function(elemento) {
    ====================================================== */
 
 
-document.getElementById('boton4').onclick = function(){
+document.getElementById('boton4').onclick = function () {
    const contenido3 = document.getElementById('testo').value;
    const contenido = document.getElementById('contenido');
 
@@ -191,12 +191,12 @@ document.getElementById('boton4').onclick = function(){
 
 
 
-if(contenido3 = 0){
+   if (contenido3 = 0) {
 
-alert('no as metido nada');
+      alert('no as metido nada');
 
 
-}
+   }
 
 }
 
@@ -220,6 +220,56 @@ alert('no as metido nada');
 /* ===================================================
    TODO: Ejercicio 5 – Lista de tareas (To-Do List)
    =================================================== */
+
+const testo2 = document.getElementById("testo2");
+const listaTareas = document.getElementById("listaTareas");
+
+
+document.getElementById("boton5").addEventListener("click", () => {
+   const texto = testo2.value.trim();
+   if (texto === "") return;
+
+
+   const li = document.createElement("li");
+   li.textContent = texto;
+   li.classList.add("list-group-item");
+
+   li.addEventListener("click", () => {
+      li.classList.toggle("completada");
+   });
+
+
+   listaTareas.appendChild(li);
+   testo2.value = "";
+});
+
+
+document.getElementById("boton6").addEventListener("click", () => {
+   const completadas = document.querySelectorAll(".completada");
+   completadas.forEach(li => li.remove());
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // TODO: 1. Seleccionar elementos: input (#tareaInput), botones (#btn-tarea, #btn-borrar-completadas), lista (#listaTareas)
 
