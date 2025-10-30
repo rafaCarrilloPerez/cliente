@@ -239,6 +239,8 @@ document.getElementById("boton5").addEventListener("click", () => {
    });
 
 
+   
+
    listaTareas.appendChild(li);
    testo2.value = "";
 });
