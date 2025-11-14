@@ -287,7 +287,7 @@ form4.addEventListener("submit", function(e) {
 
 
 
-  /* ---------------- EJERCICIO 5 – Registro completo ---------------- */
+  /* EJERCICIO 5 – Registro completo*/
   const form5 = document.getElementById("bs-form-ej5");
   const msg5 = document.getElementById("bs-msg-ej5");
 
@@ -302,7 +302,7 @@ form4.addEventListener("submit", function(e) {
       return;
     }
 
-    // Comparación de contraseñas
+  
     const pass1 = form5.pass1.value.trim();
     const pass2 = form5.pass2.value.trim();
 
@@ -312,7 +312,7 @@ form4.addEventListener("submit", function(e) {
       return;
     }
 
-    // Creación del objeto final
+    
     const datos = {
       nombre: form5.nombre.value.trim(),
       email: form5.email.value.trim(),
@@ -320,13 +320,13 @@ form4.addEventListener("submit", function(e) {
       acepta_terminos: form5.terminos.checked
     };
 
-    // Mostrar JSON
+   
     msg5.innerHTML =
       "<strong>Formulario enviado correctamente:</strong><br><pre>" +
       JSON.stringify(datos, null, 2) + "</pre>";
     msg5.style.color = "green";
 
-    // form5.reset(); // si quieres limpiar el formulario
+   
   });
 
 
