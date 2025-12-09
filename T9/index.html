@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario con Validaciones y Cookies</title>
+
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .correcto { border: 2px solid green !important; }
+        .incorrecto { border: 2px solid red !important; }
+        .mensaje { font-size: 0.9em; }
+        .ayuda { color: #555; }
+        .ok { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body class="bg-light p-4">
+
+    <div class="container bg-white p-4 rounded shadow">
+        <h2 class="mb-3">Solución práctica – Tema 9</h2>
+
+        <div class="card mb-3">
+            <div class="card-header">Formulario con eventos, expresiones regulares y cookies</div>
+            <div class="card-body">
+
+                <h4 id="saludo" class="text-primary"></h4>
+
+                <form id="formulario">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre de usuario</label>
+                        <input type="text" id="nombre" class="form-control" />
+                        <div id="ayuda-nombre" class="mensaje ayuda"></div>
+                        <div id="estado-nombre" class="mensaje"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Correo electrónico</label>
+                        <input type="text" id="email" class="form-control" />
+                        <div id="ayuda-email" class="mensaje ayuda"></div>
+                        <div id="estado-email" class="mensaje"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Contraseña</label>
+                        <input type="password" id="password" class="form-control" />
+                        <div id="ayuda-password" class="mensaje ayuda"></div>
+                        <div id="estado-password" class="mensaje"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Edad</label>
+                        <input type="text" id="edad" class="form-control" />
+                        <div id="ayuda-edad" class="mensaje ayuda"></div>
+                        <div id="estado-edad" class="mensaje"></div>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input type="checkbox" id="recordarme" class="form-check-input">
+                        <label class="form-check-label">Recordarme (guardar cookie con el nombre)</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                    <button type="button" id="borrarCookie" class="btn btn-danger ms-2">Eliminar cookie</button>
+                </form>
+            </div>
+        </div>
+    </div>
+<script>
+
+
+
+const regexNombre = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
+const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const regexPassword = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+const regexEdad = /^\d+$/;
+
+window.onload = function () {
+    const username = getCookie("username");
+    if (username) {
+        document.getElementById("saludo").textContent = `Bienvenido de nuevo, ${username}`;
+        document.getElementById("nombre").value = username;
+    }
+};
+
+function activarAyuda(campo, mensaje) {
+    const div = document.getElementById(`ayuda-${campo}`);
+    div.textContent = mensaje;
+    div.style.display = "block";
+}
+
+function ocultarAyuda(campo) {
+    const div = document.getElementById(`ayuda-${campo}`);
+    div.style.display = "none";
+}
+
+
+function validarCampo(campo, regex) {
+    const input = document.getElementById(campo);
+    const estado = document.getElementById(`estado-${campo}`);
+    const valor = input.value;
+
+    if (regex.test(valor)) {
+        input.className = "correcto";
+        estado.textContent = "Correcto";
+        estado.className = "mensaje ok";
+        return true;
+    } else {
+        input.className = "incorrecto";
+        estado.textContent = "Formato incorrecto";
+        estado.className = "mensaje error";
+        return false;
+    }
+}
+
+const mensajesAyuda = {
+    nombre: "Introduce solo letras y espacios.",
+    email: "Debe ser un correo electrónico válido.",
+    password: "Mín. 8 caracteres, 1 mayúscula, 1 número y 1 símbolo.",
+    edad: "Introduce solo números."
+};
+
+["nombre", "email", "password", "edad"].forEach((campo) => {
+    const input = document.getElementById(campo);
+
+    input.onfocus = () => activarAyuda(campo, mensajesAyuda[campo]);
+    input.onblur = () => ocultarAyuda(campo);
+
+    input.oninput = () => {
+        const regex =
+            campo === "nombre" ? regexNombre :
+            campo === "email" ? regexEmail :
+            campo === "password" ? regexPassword : regexEdad;
+
+        validarCampo(campo, regex);
+    };
+});
+
+
+const formulario = document.getElementById("formulario");
+
+formulario.addEventListener("submit", function (e) {
+    const validaciones = [
+        validarCampo("nombre", regexNombre),
+        validarCampo("email", regexEmail),
+        validarCampo("password", regexPassword),
+        validarCampo("edad", regexEdad)
+    ];
+
+    if (validaciones.includes(false)) {
+        e.preventDefault();
+        alert("Debe corregir los errores antes de enviar.");
+    } else {
+        setCookie("username", document.getElementById("nombre").value, 7);
+        alert("Formulario enviado correctamente");
+    }
+});
+
+
+document.getElementById("borrarCookie").onclick = function () {
+    deleteCookie("username");
+    alert("Cookie eliminada correctamente");
+};
+
+
+function setCookie(nombre, valor, dias) {
+    const fecha = new Date();
+    fecha.setTime(fecha.getTime() + dias * 24 * 60 * 60 * 1000);
+    document.cookie = `${nombre}=${valor};expires=${fecha.toUTCString()};path=/`;
+}
+
+function getCookie(nombre) {
+    const cookies = document.cookie.split(";");
+    for (let c of cookies) {
+        c = c.trim();
+        if (c.startsWith(nombre + "=")) {
+            return c.substring((nombre.length + 1));
+        }
+    }
+    return null;
+}
+
+function deleteCookie(nombre) {
+    document.cookie = `${nombre}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;
+}
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
+
+
