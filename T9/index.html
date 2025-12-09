@@ -72,7 +72,7 @@
 
 
 
-const regexNombre = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
+const regexNombre = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+( [A-Za-zÁÉÍÓÚáéíóúÑñ ]+)*$/;
 const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const regexPassword = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
 const regexEdad = /^\d+$/;
