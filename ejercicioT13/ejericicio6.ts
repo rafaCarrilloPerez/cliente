@@ -15,7 +15,7 @@ class Persona {
 function ej6(): void {
   const persona = new Persona("Tolano", 30);
   persona.presentarse();
-  // console.log(persona.edad); // error: propiedad privada
+
 }
 
 (window as any).ej6 = ej6;

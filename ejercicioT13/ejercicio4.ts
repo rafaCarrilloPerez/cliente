@@ -12,7 +12,7 @@ function ej4(): void {
   };
 
   console.log("EJ4", productoCorrecto);
-  // const productoIncorrecto: Producto = { id: 2, nombre: "X" }; // error, comentar
+ 
 }
 
 (window as any).ej4 = ej4;
